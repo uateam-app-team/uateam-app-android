@@ -1,2 +1,0 @@
-uateam-app-android
-==================

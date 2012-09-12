@@ -1,4 +1,2 @@
-*.class
-
-/gen
-/bin
+target
+gen
