@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello uateam-app-android!</string>
-    <string name="app_name">uateam-app-android</string>
+
+    <string name="app_name">UAteam.tv</string>
+    <string name="title_section1">Свіженьке</string>
+    <string name="title_section2">Багатосерійні</string>
+    <string name="title_section3">Фільми</string>
+    <string name="title_section4">Мультфільми</string>
+    <string name="menu_settings">Settings</string>
+
 </resources>
