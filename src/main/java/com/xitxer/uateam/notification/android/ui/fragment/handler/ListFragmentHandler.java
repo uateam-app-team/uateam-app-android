@@ -1,0 +1,43 @@
+package com.xitxer.uateam.notification.android.ui.fragment.handler;
+
+import java.util.List;
+
+import android.support.v4.app.ListFragment;
+import android.widget.ListAdapter;
+
+import com.google.common.base.Preconditions;
+import com.xitxer.uateam.notification.android.task.RecentReleaseLoader;
+import com.xitxer.uateam.notification.android.task.base.holder.IHolder;
+import com.xitxer.uateam.notification.android.task.base.obtainer.HolderObtainer;
+import com.xitxer.uateam.notification.android.ui.fragment.adapter.SimpleListAdapter;
+import com.xitxer.uateam.notification.android.ui.fragment.adapter.viewhandler.base.IViewHandler;
+import com.xitxer.uateam.notification.core.model.ReleaseEntry;
+
+public class ListFragmentHandler implements HolderObtainer<List<ReleaseEntry>> {
+	private final ListFragment fragment;
+	private final IViewHandler<ReleaseEntry> viewHandler;
+
+	public ListFragmentHandler(ListFragment fragment, IViewHandler<ReleaseEntry> viewHandler) {
+		super();
+		this.fragment = Preconditions.checkNotNull(fragment);
+		this.viewHandler = Preconditions.checkNotNull(viewHandler);
+	}
+
+	public void onActivityCreated() {
+		new RecentReleaseLoader(this).execute();
+	}
+
+	@Override
+	public void obtain(IHolder<List<ReleaseEntry>> data) {
+		if (data.successful()) {
+			fragment.setListAdapter(createListAdapter(data.getData()));
+		} else {
+			fragment.setListAdapter(createListAdapter(null));
+			fragment.setEmptyText(data.getException().getMessage());
+		}
+	}
+
+	public ListAdapter createListAdapter(List<ReleaseEntry> list) {
+		return SimpleListAdapter.make(list, viewHandler);
+	}
+}

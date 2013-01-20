@@ -1,4 +1,7 @@
 target
 gen
+bin
+libs
 .settings
-/bin
+.classpath
+.project
