@@ -7,15 +7,15 @@ import com.xitxer.uateam.notification.android.task.base.obtainer.HolderObtainer;
 import com.xitxer.uateam.notification.core.model.ReleaseEntry;
 import com.xitxer.uateam.notification.core.parser.RecentReleasesParser;
 import com.xitxer.uateam.notification.core.parser.sitesource.HttpSiteSource;
-import com.xitxer.uateam.notification.core.util.UateamSiteUtils;
+import com.xitxer.uateam.notification.core.util.UateamSiteUtil;
 
 public class RecentReleaseLoader extends SimpleHolderObtainerTask<List<ReleaseEntry>> {
-	public RecentReleaseLoader(HolderObtainer<List<ReleaseEntry>> obtainer) {
+	public RecentReleaseLoader(final HolderObtainer<List<ReleaseEntry>> obtainer) {
 		super(obtainer);
 	}
 
 	@Override
 	protected List<ReleaseEntry> retrieve() throws Exception {
-		return new RecentReleasesParser(new HttpSiteSource(UateamSiteUtils.URL_BASE)).get();
+		return new RecentReleasesParser(new HttpSiteSource(UateamSiteUtil.URL_BASE)).get();
 	}
 }
