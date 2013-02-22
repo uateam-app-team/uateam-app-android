@@ -11,14 +11,14 @@ import com.xitxer.uateam.notification.android.ui.adapter.SectionsPagerAdapter;
 public class MainActivity extends FragmentActivity {
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		((ViewPager) findViewById(R.id.pager)).setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}

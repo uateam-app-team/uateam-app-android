@@ -10,7 +10,7 @@ import com.xitxer.uateam.notification.core.parser.sitesource.HttpSiteSource;
 import com.xitxer.uateam.notification.core.util.UateamSiteUtil;
 
 public class RecentReleaseLoader extends SimpleHolderObtainerTask<List<ReleaseEntry>> {
-	public RecentReleaseLoader(final HolderObtainer<List<ReleaseEntry>> obtainer) {
+	public RecentReleaseLoader(HolderObtainer<List<ReleaseEntry>> obtainer) {
 		super(obtainer);
 	}
 

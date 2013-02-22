@@ -10,7 +10,6 @@ public class ItemListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		new ListFragmentHandler(this, new ReleaseEntryViewHandler(getLayoutInflater(savedInstanceState)))
-				.onActivityCreated();
+		new ListFragmentHandler(this, new ReleaseEntryViewHandler(getLayoutInflater(savedInstanceState))).onActivityCreated();
 	}
 }
