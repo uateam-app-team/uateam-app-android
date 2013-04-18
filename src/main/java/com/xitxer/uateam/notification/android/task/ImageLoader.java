@@ -9,16 +9,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 
 import com.google.common.base.Preconditions;
 import com.xitxer.uateam.notification.android.task.base.HolderObtainerTask;
 import com.xitxer.uateam.notification.android.task.base.obtainer.HolderObtainer;
 import com.xitxer.uateam.notification.android.util.FileUtil;
-import com.xitxer.uateam.notification.android.util.PLog;
-import com.xitxer.uateam.notification.core.util.UateamSiteUtil;
 
 public class ImageLoader extends HolderObtainerTask<String, Void, Bitmap> {
-	private static final String TAG = ImageLoader.class.getSimpleName();
+	private static CompressFormat getCompressFormat() {
+		return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH ? CompressFormat.WEBP : CompressFormat.JPEG;
+	}
 
 	private final FileUtil fileUtil;
 
@@ -29,18 +31,13 @@ public class ImageLoader extends HolderObtainerTask<String, Void, Bitmap> {
 
 	@Override
 	protected Bitmap retrieve(String... params) throws Exception {
-		String url = Preconditions.checkNotNull(params[0]);
-		if (!url.startsWith(UateamSiteUtil.URL_BASE)) {
-			url = UateamSiteUtil.URL_BASE + url;
-		}
-		PLog.d(TAG, "url:" + url);
+		Preconditions.checkNotNull(params, "params == null");
+		String url = Preconditions.checkNotNull(params[0], "params[0] == null");
 		File file = fileUtil.getCacheFile(url);
-		PLog.d(TAG, "file:" + file);
 		Bitmap bitmap;
-		PLog.d(TAG, "!file.exists():" + (!file.exists()));
 		if (!file.exists()) {
 			bitmap = BitmapFactory.decodeStream(new URL(url).openStream());
-			bitmap.compress(CompressFormat.JPEG, 90, new FileOutputStream(file));
+			bitmap.compress(getCompressFormat(), 95, new FileOutputStream(file));
 		} else {
 			bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
 		}

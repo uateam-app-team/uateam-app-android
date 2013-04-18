@@ -13,6 +13,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 	}
 
 	@Override
+	public int getCount() {
+		return 1;
+	}
+
+	@Override
 	public Fragment getItem(int i) {
 		switch (i) {
 		case 0:
@@ -20,10 +25,5 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		default:
 			return null;
 		}
-	}
-
-	@Override
-	public int getCount() {
-		return 1;
 	}
 }

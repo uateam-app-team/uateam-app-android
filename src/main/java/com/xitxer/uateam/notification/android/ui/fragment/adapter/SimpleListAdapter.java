@@ -7,10 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.google.common.base.Preconditions;
 import com.xitxer.uateam.notification.android.ui.fragment.adapter.viewhandler.base.IViewHandler;
 
 public class SimpleListAdapter<Data> extends BaseAdapter {
+	public static <Data> SimpleListAdapter<Data> make(List<Data> list, IViewHandler<Data> viewCreator) {
+		return new SimpleListAdapter<Data>(list, viewCreator);
+	}
 	private final List<Data> list;
+
 	private final IViewHandler<Data> viewCreator;
 
 	public SimpleListAdapter(List<Data> list, IViewHandler<Data> viewCreator) {
@@ -18,11 +23,8 @@ public class SimpleListAdapter<Data> extends BaseAdapter {
 		if (list == null) {
 			list = new ArrayList<Data>();
 		}
-		if (viewCreator == null) {
-			throw new IllegalArgumentException("viewCreator == null");
-		}
 		this.list = list;
-		this.viewCreator = viewCreator;
+		this.viewCreator = Preconditions.checkNotNull(viewCreator, "viewCreator == null");
 	}
 
 	@Override
@@ -47,9 +49,5 @@ public class SimpleListAdapter<Data> extends BaseAdapter {
 			view = viewCreator.createView();
 		}
 		return viewCreator.fillView(getItem(position), view);
-	}
-
-	public static <Data> SimpleListAdapter<Data> make(List<Data> list, IViewHandler<Data> viewCreator) {
-		return new SimpleListAdapter<Data>(list, viewCreator);
 	}
 }
